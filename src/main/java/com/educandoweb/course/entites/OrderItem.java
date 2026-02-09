@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import com.educandoweb.course.entites.pk.OrderItemPK;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.aspectj.weaver.ast.Or;
 
 @Entity
 @Table(name = "tb_order_item")
@@ -14,7 +16,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
@@ -27,8 +29,8 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
         this.price = price;
     }
-
-    public Order getOrder(Order order) {
+    @JsonIgnore
+    public Order getOrder() {
         return id.getOrder();
     }
 
@@ -36,7 +38,7 @@ public class OrderItem implements Serializable {
         id.setOrder(order);
     }
 
-    public Product getProduct(Product product) {
+    public Product getProduct() {
         return id.getProduct();
     }
 

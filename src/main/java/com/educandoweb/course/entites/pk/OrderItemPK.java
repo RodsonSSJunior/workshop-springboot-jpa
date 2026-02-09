@@ -1,6 +1,7 @@
 package com.educandoweb.course.entites.pk;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import com.educandoweb.course.entites.Order;
 import com.educandoweb.course.entites.Product;
@@ -36,4 +37,15 @@ public class OrderItemPK implements Serializable {
         this.product = product;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItemPK that = (OrderItemPK) o;
+        return Objects.equals(order, that.order) && Objects.equals(product, that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, product);
+    }
 }
